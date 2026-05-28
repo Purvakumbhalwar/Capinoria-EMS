@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../..
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/Table"
 import { Badge } from "../../components/ui/Badge"
 import { Loader2, Plus } from "lucide-react"
+import { apiFetch } from "../../lib/api"
 
 const getStatusColor = (status) => {
   switch (status) {
@@ -27,7 +28,7 @@ export function MyLeaves() {
     const parsed = JSON.parse(saved);
     setUser(parsed);
 
-    fetch(`http://localhost:5000/api/leaves/employee/${parsed._id}`)
+    apiFetch(`/api/leaves/employee/${parsed._id}`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setLeaves(data);
@@ -43,7 +44,7 @@ export function MyLeaves() {
     e.preventDefault();
     setIsApplying(true);
     try {
-      const res = await fetch('http://localhost:5000/api/leaves', {
+      const res = await apiFetch('/api/leaves', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

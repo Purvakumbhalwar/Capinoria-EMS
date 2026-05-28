@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AppLayout } from "../components/layout/AppLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/Card";
 import { Briefcase, Edit2, Save, X, Search } from "lucide-react";
+import { apiFetch } from "../lib/api"
 
 export function HRAssets() {
   const [assets, setAssets] = useState([]);
@@ -12,7 +13,7 @@ export function HRAssets() {
 
   const fetchAssets = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/assets');
+      const res = await apiFetch('/api/assets');
       const data = await res.json();
       setAssets(data);
     } catch (err) {
@@ -42,7 +43,7 @@ export function HRAssets() {
 
   const handleSaveEdit = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/assets/${id}`, {
+      const res = await apiFetch(`/api/assets/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

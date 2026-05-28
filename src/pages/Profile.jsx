@@ -3,6 +3,7 @@ import { User, Mail, Phone, MapPin, Building, Shield, LogOut, Camera, Key, BellR
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/Card"
 import { AppLayout } from "../components/layout/AppLayout"
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/Avatar"
+import { apiFetch } from "../lib/api"
 
 export function Profile() {
   const [user, setUser] = useState(null);
@@ -28,7 +29,7 @@ export function Profile() {
     setIsSaving(true);
     setMessage({ type: '', text: '' });
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/${user._id}`, {
+      const res = await apiFetch(`/api/auth/${user._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

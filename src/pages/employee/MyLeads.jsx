@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Badge } from "../../components/ui/Badge"
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/Avatar"
 import { Loader2 } from "lucide-react"
+import { apiFetch } from "../../lib/api"
 
 const getStatusColor = (status) => {
   switch (status) {
@@ -26,7 +27,7 @@ export function MyLeads() {
     if (!saved) return;
     const user = JSON.parse(saved);
 
-    fetch(`http://localhost:5000/api/leads/employee/${user._id}`)
+    apiFetch(`/api/leads/employee/${user._id}`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setTasks(data);
@@ -41,7 +42,7 @@ export function MyLeads() {
   const handleStatusChange = async (taskId, newStatus) => {
     setUpdatingId(taskId);
     try {
-      const res = await fetch(`http://localhost:5000/api/leads/${taskId}`, {
+      const res = await apiFetch(`/api/leads/${taskId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })

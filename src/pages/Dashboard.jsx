@@ -3,6 +3,7 @@ import { Users, FileText, CheckCircle2, AlertCircle, TrendingUp, CalendarDays, M
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/Card"
 import { AppLayout } from "../components/layout/AppLayout"
+import { apiFetch } from "../lib/api"
 
 export function Dashboard() {
   const [topEmployees, setTopEmployees] = useState([]);
@@ -11,19 +12,19 @@ export function Dashboard() {
 
   useEffect(() => {
     // Fetch Top Employees
-    fetch('http://localhost:5000/api/leads/performance/top-employees')
+    apiFetch('/api/leads/performance/top-employees')
       .then(res => res.json())
       .then(data => setTopEmployees(data))
       .catch(console.error);
 
     // Fetch Top Clients
-    fetch('http://localhost:5000/api/leads/performance/top-clients')
+    apiFetch('/api/leads/performance/top-clients')
       .then(res => res.json())
       .then(data => setTopClients(data))
       .catch(console.error);
 
     // Fetch Leaves
-    fetch('http://localhost:5000/api/leaves')
+    apiFetch('/api/leaves')
       .then(res => res.json())
       .then(data => setLeaves(data))
       .catch(console.error);
@@ -31,7 +32,7 @@ export function Dashboard() {
 
   const handleLeaveStatus = async (id, status) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/leaves/${id}`, {
+      const res = await apiFetch(`/api/leaves/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status })

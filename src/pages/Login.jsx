@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Card, CardContent } from "../components/ui/Card"
 import { UserPlus, LogIn, ArrowRight, Shield, User } from "lucide-react"
+import { apiFetch } from "../lib/api"
 
 export function Login() {
   const [isSignup, setIsSignup] = useState(false);
@@ -22,7 +23,7 @@ export function Login() {
         ? { firstName: firstName.trim(), lastName: lastName.trim(), email: email.trim(), password: password.trim(), roleLevel }
         : { email: email.trim(), password: password.trim() };
         
-      const res = await fetch(`http://localhost:5000${endpoint}`, {
+      const res = await apiFetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bodyData)

@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../co
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/Table"
 import { Badge } from "../components/ui/Badge"
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/Avatar"
+import { apiFetch } from "../lib/api"
 
 
 const getStatusColor = (status) => {
@@ -26,8 +27,8 @@ export function TaskTracker() {
 
   useEffect(() => {
     Promise.all([
-      fetch('http://localhost:5000/api/leads').then(res => res.json()),
-      fetch('http://localhost:5000/api/employees').then(res => res.json())
+      apiFetch('/api/leads').then(res => res.json()),
+      apiFetch('/api/employees').then(res => res.json())
     ])
     .then(([leadsData, employeesData]) => {
       if (Array.isArray(leadsData)) setTasks(leadsData);
@@ -43,7 +44,7 @@ export function TaskTracker() {
       const activeEmployees = employees.filter(emp => emp.status !== 'Blocked');
       const defaultEmployee = activeEmployees.length > 0 ? activeEmployees[0]._id : null;
 
-      const res = await fetch('http://localhost:5000/api/leads', {
+      const res = await apiFetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AppLayout } from "../components/layout/AppLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/Card";
 import { UserPlus, Briefcase, Plus } from "lucide-react";
+import { apiFetch } from "../lib/api"
 
 export function HRManagement() {
   const [assetName, setAssetName] = useState('');
@@ -15,7 +16,7 @@ export function HRManagement() {
   const handleEmployeeSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('http://localhost:5000/api/employees', {
+      await apiFetch('/api/employees', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(empData)
@@ -31,7 +32,7 @@ export function HRManagement() {
   const handleAssetSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('http://localhost:5000/api/assets', {
+      await apiFetch('/api/assets', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: assetName, type: assetType, currentValue: Number(assetValue) })

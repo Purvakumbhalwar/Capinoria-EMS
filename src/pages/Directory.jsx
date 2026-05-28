@@ -4,6 +4,7 @@ import { AppLayout } from "../components/layout/AppLayout"
 import { Card, CardContent } from "../components/ui/Card"
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/Avatar"
 import { Badge } from "../components/ui/Badge"
+import { apiFetch } from "../lib/api"
 
 export function Directory() {
   const [employees, setEmployees] = useState([]);
@@ -16,7 +17,7 @@ export function Directory() {
 
   const handleToggleBlock = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/employees/${id}/block`, {
+      const res = await apiFetch(`/api/employees/${id}/block`, {
         method: 'PUT'
       });
       if (res.ok) {
@@ -44,7 +45,7 @@ export function Directory() {
   });
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/employees')
+    apiFetch('/api/employees')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
