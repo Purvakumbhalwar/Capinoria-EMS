@@ -1,0 +1,41 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+pnpm-lock.yaml
+
+# Build
+dist/
+build/
+.vite/
+
+# Environment
+.env
+.env.local
+
+# Logs
+logs/
+*.log
+
+# OS & editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Backend modules
+/backend/node_modules/
+
+# OneDrive
+*.lnk
+
+# Misc
+cover/*
+coverage/
+
+# Public build artifacts
+public/dist/
+
+# Local npm binary
+.npm
